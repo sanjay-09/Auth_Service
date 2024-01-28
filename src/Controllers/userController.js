@@ -19,11 +19,12 @@ const create=async(req,res)=>{
 
     }
     catch(error){
-        return res.status(error.status).json({
+    
+        return res.status(error.statusCode).json({
             data:{},
             status:false,
-            message:error.message,
-            err:error.explanation
+            message:"Cannnot create the user",
+            err:error.message
         })
 
     }
@@ -32,9 +33,9 @@ const create=async(req,res)=>{
 
 const destroy=async(req,res)=>{
     try{
-        const res=await UserService.destroy(req.params.id);
+        const response=await UserService.destroy(req.params.id);
         return res.status(201).json({
-            data:res,
+            data:response,
             status:true,
             message:"deleted a user",
             err:{}
@@ -43,12 +44,15 @@ const destroy=async(req,res)=>{
 
     }
     catch(err){
-        return res.status(500).json({
-            data:{},
-            status:false,
-            message:"Cannot delete the city",
-            err:err
-        })
+        console.log("hello");
+        console.log(err);
+        // return res.status(err.statusCode).json({
+        //     data:{},
+        //     status:false,
+        //     message:"Cannot delete the city",
+        //     err:err.message
+        // })
+        return res.send("ok");
     }
 }
 
@@ -84,20 +88,23 @@ const signIn=async(req,res)=>{
         })
 
     }
-    catch(err){
-       return res.status(500).json({
+    catch(error){
+       
+       return res.status(error.err.status).json({
         data:{},
         status:false,
-        message:"Cannot signIn",
-        err:{err}
+        message:error.err.message,
+        err:error.err.explanation
        })
     }
 }
 const isAuthenticated=async(req,res)=>{
     try{
         const token=req.headers['x-access-token'];
+        
         const response=await UserService.authenticateUser(token);
-        return res.status(500).json({
+       
+        return res.status(200).json({
             data:response,
             status:true,
             message:"token validated",
@@ -108,8 +115,8 @@ const isAuthenticated=async(req,res)=>{
 
     }
     catch(err){
-        return res.status(500).json({
-            data:response,
+        return res.status(200).json({
+            data:{},
             status:false,
             message:"Cannot authenticate",
             message:err

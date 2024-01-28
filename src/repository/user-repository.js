@@ -1,5 +1,7 @@
 const {User,Role}=require("../models/index");
+const errorHandler = require("../utils/responseWrapper");
 const validateError=require("../utils/validation-error");
+const {StatusCodes}=require("http-status-codes");
 class userRepository{
     async create(data){
         try{
@@ -9,33 +11,25 @@ class userRepository{
 
         }
         catch(error){
-            console.log("in the error block")
-        
-            if(error.name=="SequelizeValidationError"){
-               
-                throw new validateError(error);
-              
-
-
-
-
-            }
-            
+            throw err;
             
         }
     }
     async destroy(userId){
         try{
-            await User.destroy({
+           const ans= await User.destroy({
                 where:{
                     id:userId
                 }
             });
             return true;
-
+           
+            
         }
         catch(err){
-            throw err;
+           throw err;
+            
+          
         }
     }
  async getById(userId){
@@ -59,6 +53,8 @@ async getByEmail(inComingEmail){
                 email:inComingEmail
             }
         })
+        console.log(email);
+        
         
         return email;
         

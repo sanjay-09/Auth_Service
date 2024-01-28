@@ -2,6 +2,8 @@ const userRepository=require("../repository/user-repository");
 const jwt=require("jsonwebtoken");
 const dotenv=require("dotenv");
 const bcrypt=require("bcrypt");
+const ClientError = require("../utils/client-error");
+const {StatusCodes}=require("http-status-codes");
 
 
 class userService{
@@ -17,8 +19,8 @@ class userService{
 
         }
         catch(error){
-    
             throw error;
+            
         }
     }
     async destroy(userId){
@@ -46,15 +48,25 @@ class userService{
         try{
             //get the user on the basis of the inComingEmail
             const user=await this.UserRepository.getByEmail(inComingEmail);
+            console.log(user);
         
             if(!user){
-                throw {error:"Please SignUp to login"}
+               
+               
+               
+                throw new ClientError(
+                    "attribute not found",
+                     "Invalid email sent in the request",
+                     'Please check the email,their is no record of email',
+                     StatusCodes.NOT_FOUND
+
+                )
             }
            
             const result=this.checkPassword(inComingPassword,user.password);
         
             if(!result){
-                throw {error:"Plase enter the correct password"}
+                throw {error:"Plesse enter the correct password"}
             }
             const token=this.createToken({email:user.email,id:user.id});
             return token;
