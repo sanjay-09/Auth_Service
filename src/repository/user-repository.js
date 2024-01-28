@@ -11,7 +11,7 @@ class userRepository{
 
         }
         catch(error){
-            throw err;
+            throw error;
             
         }
     }
