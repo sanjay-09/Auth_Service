@@ -1,9 +1,8 @@
 const express=require("express");
-// const {PORT}=require("../src/config/serverConfig.js");
-const PORT=3001;
+const {PORT,Node_ENV}=require("../src/config/serverConfig.js");
+
 const userService=require("./services/user-service");
-const dotenv=require("dotenv");
-dotenv.config({path:"../.env"});
+
 
 const db=require("./models/index.js");
 const {User,Role}=require("./models/index.js");
@@ -18,6 +17,8 @@ const startServer=()=>{
     app.use("/AuthService/api",apiRouter);
 
     app.listen(PORT,async(req,res)=>{
+        db.sequelize.sync({alter:true})
+      
         
         console.log(`server is listening on the Port ${PORT}`);
         
