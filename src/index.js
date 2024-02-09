@@ -15,12 +15,10 @@ const startServer=()=>{
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true}));
 
-    app.use("/api",apiRouter);
+    app.use("/AuthService/api",apiRouter);
 
     app.listen(PORT,async(req,res)=>{
-        // if(process.env.DB_SYNC){
-        //     db.sequelize.sync({alter:true});
-        // }
+        
         console.log(`server is listening on the Port ${PORT}`);
         
        
