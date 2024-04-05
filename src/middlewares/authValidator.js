@@ -1,5 +1,7 @@
 const AuthValidatorReq=(req,res,next)=>{
-    if(!req.query.email||!req.query.password){
+    const email=req?.body?.email?req.body.email:req.query.email;
+    const password=req?.body?.email ? req.body.password:req.query.password
+    if(!email||!password){
         return res.status(400).json({
             data:{},
             status:false,

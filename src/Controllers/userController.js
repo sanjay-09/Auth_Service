@@ -45,15 +45,14 @@ const destroy=async(req,res)=>{
 
     }
     catch(err){
-        console.log("hello");
-        console.log(err);
-        // return res.status(err.statusCode).json({
-        //     data:{},
-        //     status:false,
-        //     message:"Cannot delete the city",
-        //     err:err.message
-        // })
-        return res.send("ok");
+       
+        return res.status(500).json({
+            data:{},
+            status:false,
+            message:"Cannot delete the city",
+            err:err.message
+        })
+       
     }
 }
 
@@ -79,7 +78,7 @@ const getById=async(req,res)=>{
 }
 const signIn=async(req,res)=>{
     try{
-        console.log(req.query.email);
+       
         const response=await UserService.signIn(req.query.email,req.query.password);
         return res.status(200).json({
             data:response,
