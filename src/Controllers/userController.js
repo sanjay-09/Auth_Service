@@ -8,6 +8,7 @@ const create=async(req,res)=>{
             email:req.body.email,
             password:req.body.password
         });
+
         
         return res.status(201).json({
             data:user,
@@ -78,7 +79,8 @@ const getById=async(req,res)=>{
 }
 const signIn=async(req,res)=>{
     try{
-        const response=await UserService.signIn(req.body.email,req.body.password);
+        console.log(req.query.email);
+        const response=await UserService.signIn(req.query.email,req.query.password);
         return res.status(200).json({
             data:response,
             status:true,

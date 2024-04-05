@@ -10,7 +10,7 @@ router.get("/user/:id",userController.getById);
 
 router.delete("/user/:id",userController.destroy);
 
-router.post("/signin",AuthValidator.AuthValidatorReq,userController.signIn);
+router.get("/signin",AuthValidator.AuthValidatorReq,userController.signIn);
 
 router.get("/isAuthenticated",userController.isAuthenticated);
 
