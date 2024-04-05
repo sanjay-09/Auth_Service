@@ -15,6 +15,9 @@ const startServer=()=>{
     app.use(bodyParser.urlencoded({ extended: true}));
 
     app.use("/AuthService/api",apiRouter);
+    app.get("/",(req,res)=>{
+        return res.send("ok");
+    })
 
     app.listen(PORT,async(req,res)=>{
         if(process.env.DB_SYNC){
