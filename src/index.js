@@ -20,12 +20,24 @@ const startServer=()=>{
     })
 
     app.listen(PORT,async(req,res)=>{
-        if(process.env.DB_SYNC){
-       db.sequelize.sync({alter:true});
-        }
-        
+        const user=await User.findOne({
+            where:{
+                email:"sanju.watson0110@gmail.com"
+            }
+        });
+        const role1=await Role.findOne({
+            where:{
+                name:"ADMIN"
+            }
+        });
+        const role2=await Role.findOne({
+            where:{
+                name:"AIRLINE BUSINESS"
+            }
+        });
+        await user.addRoles([role1,role2]);
       
-        
+       
         console.log(`server is listening on the Port ${PORT}`);
         
        
