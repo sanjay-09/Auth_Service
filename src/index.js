@@ -17,7 +17,9 @@ const startServer=()=>{
     app.use("/AuthService/api",apiRouter);
 
     app.listen(PORT,async(req,res)=>{
-        // db.sequelize.sync({alter:true});
+        if(process.env.DB_SYNC){
+       db.sequelize.sync({alter:true});
+        }
         
       
         
