@@ -32,7 +32,7 @@ const startServer=()=>{
         });
         const role2=await Role.findOne({
             where:{
-                name:"AIRLINE BUSINESS"
+                name:"AIRLINE_BUSINESS"
             }
         });
         await user.addRoles([role1,role2]);
